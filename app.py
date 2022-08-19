@@ -245,8 +245,7 @@ def create_venue_submission():
         seeking_talent = form.seeking_talent.data,
       )
         
-      db.session.add(venue)
-      db.session.commit()
+      Venue.create(venue)
       # on successful db insert, flash success
       flash('Venue ' + venue.name + ' was successfully listed!') 
 
@@ -274,8 +273,7 @@ def delete_venue(venue_id):
   
   try:
     venue = Venue.query.get(venue_id)
-    db.session.delete(venue)
-    db.session.commit()
+    Venue.delete(venue)
     flash("Venue " + venue.name+ " was deleted successfully!")
   except:
       db.session.rollback()
@@ -486,22 +484,6 @@ def show_artist(artist_id):
   return render_template('pages/show_artist.html', artist=data)
 
 
-# @app.route('/venues/<venue_id>', methods=['DELETE'])
-# def delete_venue(venue_id):
-  
-#   try:
-#       venue = Venue.query.get(artist_id)
-#       db.session.delete(venue)
-#       db.session.commit()
-#       flash("Venue " + venue.name+ " was deleted successfully!")
-#   except:
-#       db.session.rollback()
-#       flash("Venue was not deleted successfully.")
-#   finally:
-#       db.session.close()
-
-#   return redirect(url_for("index"))
-
 
 
 
@@ -604,8 +586,7 @@ def create_artist_submission():
           seeking_description=form.seeking_description.data,
       )
       print('________+++',new_artist.seeking_venue,new_artist.genres,'++++++++')
-      db.session.add(new_artist)
-      db.session.commit()
+      Artist.create(new_artist)
       flash("Artist " + new_artist.name + " was successfully listed!")
     except Exception:
         db.session.rollback()
@@ -673,8 +654,7 @@ def create_show_submission():
       show.artist_id = form.artist_id.data
       show.venue_id = form.venue_id.data
       show.start_time = form.start_time.data
-      db.session.add(show)
-      db.session.commit()
+      Show.create(show)
       flash('Show was successfully listed!')
 
     
