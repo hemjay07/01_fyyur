@@ -21,6 +21,14 @@ class Venue(db.Model):
     shows = db.relationship('Show', backref='Venue')
     seeking_talent= db.Column(db.Boolean) 
     seeking_description= db.Column(db.String())
+    
+    def create(self):
+        db.session.add(self)
+        db.session.commit()
+       
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 
 class Artist(db.Model):
@@ -38,6 +46,14 @@ class Artist(db.Model):
     seeking_description = db.Column(db.String(500))
     website= db.Column(db.String(500))
     shows = db.relationship('Show', backref='Artist')
+    
+    def create(self):
+        db.session.add(self)
+        db.session.commit()
+       
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 
 class Show(db.Model):
@@ -48,6 +64,14 @@ class Show(db.Model):
 
   artist_id = db.Column(db.Integer, db.ForeignKey('Artist.id'), nullable=False)
   venue_id = db.Column(db.Integer, db.ForeignKey('Venue.id'), nullable=False)
+
+  def create(self):
+        db.session.add(self)
+        db.session.commit()
+       
+  def delete(self):
+    db.session.delete(self)
+    db.session.commit()
 
 
   
