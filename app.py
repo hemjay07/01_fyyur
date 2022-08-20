@@ -144,6 +144,8 @@ def show_venue(venue_id):
     # past_shows
     past_shows= []
     pshows = Show.query.filter(Show.venue_id==venue.id).filter(Show.start_time<datetime.now()).all()
+#   pshows = db.session.query(Show).join(Venue).filter(Show.venue_id==venue.id,Show.start_time<datetime.now()).all()
+
     for shows in pshows:
       artist_name = Artist.query.filter(Artist.id==shows.artist_id).first().name
       print(artist_name)
@@ -162,6 +164,8 @@ def show_venue(venue_id):
       # upcoming_shows
     upcoming_shows= []
     ushows = Show.query.filter(Show.venue_id==venue.id).filter(Show.start_time>datetime.now()).all()
+   #   ushows = db.session.query(Show).join(Venue).filter(Show.venue_id==venue.id,Show.start_time>datetime.now()).all()
+
      
     for shows in ushows:
       artist_name = Artist.query.filter(Artist.id==shows.artist_id).first().name
@@ -418,6 +422,9 @@ def show_artist(artist_id):
     # past_shows
     past_shows= []
     pshows = Show.query.filter(Show.artist_id==artist.id).filter(datetime.now()>Show.start_time ).all()
+#     pshows = db.session.query(Show).join(Artist).filter(Show.artist_id==artist.id, datetime.now()>Show.start_time ).all()
+
+
     for shows in pshows:
       venue_name = Venue.query.filter(Venue.id==shows.venue_id).first().name
       # print(venue)
@@ -437,6 +444,8 @@ def show_artist(artist_id):
     # upcoming_shows
     upcoming_shows= []
     ushows = Show.query.filter(Show.artist_id==artist.id).filter(datetime.now()<Show.start_time).all()
+#     ushows = db.session.query(Show).join(Artist).filter(Show.artist_id==artist.id, datetime.now()<Show.start_time ).all()
+
     for shows in ushows:
       venue_name = Venue.query.filter(Venue.id==shows.venue_id).first().name
       # print(venue)
